@@ -14,8 +14,6 @@ import android.os.IBinder;
 import android.util.Log;
 
 public class TestSyncService extends Service {
-    private static final Object sSyncAdapterLock = new Object();
-    private static TestSyncAdapter sSyncAdapter = null;
     
     private RequestQueue queue;
     private JsonArrayRequest jsObjRequest;
@@ -50,12 +48,6 @@ public class TestSyncService extends Service {
     	Log.d("TestSyncService", "TestSyncService - onCreate");
     	
     	queue = Volley.newRequestQueue(this);
-        /* Old Implementation
-    	synchronized (sSyncAdapterLock) {
-            if (sSyncAdapter == null)
-                sSyncAdapter = new TestSyncAdapter(getApplicationContext(), true);
-        }
-        */
     }
  
     @Override

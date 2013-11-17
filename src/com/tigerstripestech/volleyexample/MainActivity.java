@@ -48,7 +48,7 @@ public class MainActivity extends Activity implements ServiceClient {
 	public Spinner spinPeople;
 	List<String> people;
 	private EditText editPeople;
-	private Button btnSave, btnSync;
+	private Button btnSave;
 	private RequestQueue queue;
 	private JsonArrayRequest jsObjRequest;
 	private String hostname = "http://drc-spawar.rhcloud.com";
@@ -61,10 +61,6 @@ public class MainActivity extends Activity implements ServiceClient {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		//VolleyDbHelper dbHelper2 = new VolleyDbHelper(getApplicationContext());		
-		//VolleyDbHelper dbHelper= App.getDbHelper();
-		//SQLiteDatabase db2 = dbHelper2.getWritableDatabase();
-		//SQLiteDatabase db = dbHelper.getWritableDatabase();
 
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
@@ -73,7 +69,6 @@ public class MainActivity extends Activity implements ServiceClient {
 
 		spinPeople = (Spinner) findViewById(R.id.spinPeople);
 		btnSave = (Button) findViewById(R.id.buttonSave);
-		btnSync = (Button) findViewById(R.id.buttonSync);
 		editPeople = (EditText) findViewById(R.id.editPeople);
 
 		queue = Volley.newRequestQueue(this);
@@ -156,8 +151,6 @@ public class MainActivity extends Activity implements ServiceClient {
 					@Override
 					public void onResponse(JSONArray response) {
 						people = new ArrayList<String>();
-						//findViewById(R.id.progressBar1)
-						//		.setVisibility(View.GONE);
 						for (int i = 0; i < response.length(); i++) {
 							String name = "";
 
@@ -176,7 +169,6 @@ public class MainActivity extends Activity implements ServiceClient {
 								getApplicationContext(),
 								R.layout.spinner_item,
 								people);
-						//spinPeople.setBackgroundColor(android.R.color.black);
 						spinPeople.setAdapter(peopleAdapter);
 
 					}
@@ -201,37 +193,6 @@ public class MainActivity extends Activity implements ServiceClient {
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.main, menu);
 		return true;
-	}
-
-	/**
-	 * Create a new dummy account for the sync adapter
-	 * 
-	 * @param context
-	 *            The application context
-	 */
-	public static Account CreateSyncAccount(Context context) {
-		// Create the account type and default account
-		Account newAccount = new Account(ACCOUNT, ACCOUNT_TYPE);
-		// Get an instance of the Android account manager
-		AccountManager accountManager = (AccountManager) context
-				.getSystemService(ACCOUNT_SERVICE);
-		/*
-		 * Add the account and account type, no password or user data If
-		 * successful, return the Account object, otherwise report an error.
-		 */
-		if (accountManager.addAccountExplicitly(newAccount, null, null)) {
-			/*
-			 * If you don't set android:syncable="true" in in your <provider>
-			 * element in the manifest, then call context.setIsSyncable(account,
-			 * AUTHORITY, 1) here.
-			 */
-		} else {
-			/*
-			 * The account exists or some other error occurred. Log this, report
-			 * it, or handle it internally.
-			 */
-		}
-		return newAccount;
 	}
 
 }
