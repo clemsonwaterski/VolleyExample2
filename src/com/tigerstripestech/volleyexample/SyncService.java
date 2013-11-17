@@ -13,7 +13,7 @@ import android.os.Handler;
 import android.os.IBinder;
 import android.util.Log;
 
-public class TestSyncService extends Service {
+public class SyncService extends Service {
     
     private RequestQueue queue;
     private JsonArrayRequest jsObjRequest;
@@ -36,8 +36,8 @@ public class TestSyncService extends Service {
 	}
 	
 	public class ServiceBinder extends Binder {
-		TestSyncService getService() {
-			return TestSyncService.this;
+		SyncService getService() {
+			return SyncService.this;
 		}
 	}
 	
@@ -45,7 +45,7 @@ public class TestSyncService extends Service {
  
     @Override
     public void onCreate() {
-    	Log.d("TestSyncService", "TestSyncService - onCreate");
+    	Log.d("SyncService", "SyncService - onCreate");
     	
     	queue = Volley.newRequestQueue(this);
     }
@@ -64,7 +64,7 @@ public class TestSyncService extends Service {
     	h.postDelayed(new Runnable(){
 
     	    public void run(){
-    	    	Log.d("TestSyncService", "TestSyncService - onStart");
+    	    	Log.d("SyncService", "SyncService - onStart");
     	    	
     	    	jsObjRequest = mClient.get().getJSONData(url);
     	    	//Log.d("JOSH", "TOSTRING RETURNED: " + mClient.get().getClass().toString());

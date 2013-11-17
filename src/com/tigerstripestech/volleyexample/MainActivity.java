@@ -36,8 +36,8 @@ import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
-import com.tigerstripestech.volleyexample.TestSyncService.ServiceBinder;
-import com.tigerstripestech.volleyexample.TestSyncService.ServiceClient;
+import com.tigerstripestech.volleyexample.SyncService.ServiceBinder;
+import com.tigerstripestech.volleyexample.SyncService.ServiceClient;
 
 public class MainActivity extends Activity implements ServiceClient {
 
@@ -56,7 +56,7 @@ public class MainActivity extends Activity implements ServiceClient {
 	private String urlSave = hostname + "/rest/people/save";
 	
 	private SyncServiceConnection sServiceConnection = new SyncServiceConnection();
-	private TestSyncService mService = null;
+	private SyncService mService = null;
 			
 
 	@Override
@@ -65,7 +65,7 @@ public class MainActivity extends Activity implements ServiceClient {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 		
-		bindService(new Intent(this, TestSyncService.class), sServiceConnection, BIND_AUTO_CREATE);
+		bindService(new Intent(this, SyncService.class), sServiceConnection, BIND_AUTO_CREATE);
 
 		spinPeople = (Spinner) findViewById(R.id.spinPeople);
 		btnSave = (Button) findViewById(R.id.buttonSave);
@@ -184,7 +184,7 @@ public class MainActivity extends Activity implements ServiceClient {
 	}
 	
 	public void performSync(View v){
-		Intent myIntent = new Intent(this, TestSyncService.class);
+		Intent myIntent = new Intent(this, SyncService.class);
 		startService(myIntent);
 	}
 
